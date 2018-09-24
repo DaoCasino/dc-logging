@@ -1,0 +1,90 @@
+import { format } from "date-fns";
+import winston from "winston";
+import WinstonGraylog2 from "winston-graylog2";
+
+const getGraylogServerOptions = () => {
+  if (process.env.GRAYLOG_HOST) {
+    return { host: process.env.GRAYLOG_HOST, port: 12201 };
+  }
+
+  return null;
+};
+
+const GraylogServerOptions = getGraylogServerOptions();
+
+type Log = { message?: string; [key: string]: any } | string;
+
+class Logger {
+  _name: string;
+  static _logger: winston.Logger;
+
+  constructor(name: string) {
+    this._name = name;
+    const transports = GraylogServerOptions
+      ? [
+          new WinstonGraylog2({
+            graylog: {
+              servers: [GraylogServerOptions]
+            },
+            level: "info"
+          })
+        ]
+      : [new winston.transports.Console({ level: "debug" })];
+    if (!Logger._logger) {
+      Logger._logger = new winston.Logger({
+        transports
+      });
+    }
+  }
+
+  error(...logs: Log[]) {
+    logs.forEach(log => {
+      Logger._logger.error(...this._getLogMessage(log));
+    });
+  }
+
+  warn(...logs: Log[]) {
+    logs.forEach(log => {
+      Logger._logger.warn(...this._getLogMessage(log));
+    });
+  }
+
+  info(...logs: Log[]) {
+    logs.forEach(log => {
+      Logger._logger.info(...this._getLogMessage(log));
+    });
+  }
+
+  debug(...logs: Log[]) {
+    logs.forEach(log => {
+      Logger._logger.debug(...this._getLogMessage(log));
+    });
+  }
+
+  _getLogMessage(log: Log) {
+    const timestamp = format(Date.now(), "DD.MM.YYYY HH:mm:ss");
+
+    if (typeof log === "object") {
+      const { message, ...rest } = log;
+
+      return [
+        message,
+        {
+          name: this._name,
+          timestamp,
+          ...rest
+        }
+      ];
+    }
+
+    return [
+      log,
+      {
+        name: this._name,
+        timestamp
+      }
+    ];
+  }
+}
+
+export { Logger };

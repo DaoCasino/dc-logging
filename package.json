@@ -1,0 +1,24 @@
+{
+  "name": "dc-logging",
+  "version": "1.0.0",
+  "description": "DAO.Casino logging",
+  "main": "./lib/index",
+  "scripts": {
+    "build": "npm-run-all typescript",
+    "clean": "rimraf lib",
+    "typescript": "tsc --build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "date-fns": "^1.29.0",
+    "winston": "2.4.2",
+    "winston-graylog2": "^1.0.3"
+  }
+}
