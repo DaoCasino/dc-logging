@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import winston from "winston";
-import WinstonGraylog2 from "winston-graylog2";
+// import WinstonGraylog2 from "winston-graylog2";
 
 const getGraylogServerOptions = () => {
   if (process.env.GRAYLOG_HOST) {
@@ -16,24 +16,27 @@ type Log = { message?: string; [key: string]: any } | string;
 
 class Logger {
   _name: string;
-  static _logger: winston.Logger;
+  static _logger: any;
 
   constructor(name: string) {
     this._name = name;
-    const transports = GraylogServerOptions
-      ? [
-          new WinstonGraylog2({
-            graylog: {
-              servers: [GraylogServerOptions]
-            },
-            level: "info"
-          })
-        ]
-      : [new winston.transports.Console({ level: "debug" })];
+    const transports =
+      // GraylogServerOptions
+      //   ? [
+      //       new WinstonGraylog2({
+      //         graylog: {
+      //           servers: [GraylogServerOptions]
+      //         },
+      //         level: "info"
+      //       })
+      //     ]
+      //   :
+      [new winston.transports.Console({ level: "debug" })];
     if (!Logger._logger) {
-      Logger._logger = new winston.Logger({
-        transports
-      });
+      Logger._logger = console;
+      // Logger._logger = new winston.Logger({
+      //   transports
+      // });
     }
   }
 

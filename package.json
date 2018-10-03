@@ -18,7 +18,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "date-fns": "^1.29.0",
-    "winston": "2.4.2",
-    "winston-graylog2": "^1.0.3"
+    "winston": "2.4.2"
+    
   }
 }
