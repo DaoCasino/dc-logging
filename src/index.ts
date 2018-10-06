@@ -1,5 +1,5 @@
-import { format } from "date-fns";
-import winston from "winston";
+import { format } from 'date-fns';
+import winston from 'winston';
 // import WinstonGraylog2 from "winston-graylog2";
 
 const getGraylogServerOptions = () => {
@@ -31,7 +31,7 @@ class Logger {
       //       })
       //     ]
       //   :
-      [new winston.transports.Console({ level: "debug" })];
+      [new winston.transports.Console({ level: 'debug' })];
     if (!Logger._logger) {
       Logger._logger = console;
       // Logger._logger = new winston.Logger({
@@ -65,9 +65,9 @@ class Logger {
   }
 
   _getLogMessage(log: Log) {
-    const timestamp = format(Date.now(), "DD.MM.YYYY HH:mm:ss");
+    const timestamp = format(Date.now(), 'DD.MM.YYYY HH:mm:ss');
 
-    if (typeof log === "object") {
+    if (typeof log === 'object') {
       const { message, ...rest } = log;
 
       return [
