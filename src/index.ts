@@ -1,25 +1,25 @@
-import { format } from 'date-fns';
-import winston from 'winston';
-// import WinstonGraylog2 from "winston-graylog2";
+import { format } from 'date-fns'
+import winston from 'winston'
+// import WinstonGraylog2 from "winston-graylog2"
 
 const getGraylogServerOptions = () => {
   if (process.env.GRAYLOG_HOST) {
-    return { host: process.env.GRAYLOG_HOST, port: 12201 };
+    return { host: process.env.GRAYLOG_HOST, port: 12201 }
   }
 
-  return null;
-};
+  return null
+}
 
-const GraylogServerOptions = getGraylogServerOptions();
+const GraylogServerOptions = getGraylogServerOptions()
 
-type Log = { message?: string; [key: string]: any } | string;
+type Log = { message?: string; [key: string]: any } | string
 
 class Logger {
-  _name: string;
-  static _logger: any;
+  _name: string
+  static _logger: any
 
   constructor(name: string) {
-    this._name = name;
+    this._name = name
     const transports =
       // GraylogServerOptions
       //   ? [
@@ -31,63 +31,63 @@ class Logger {
       //       })
       //     ]
       //   :
-      [new winston.transports.Console({ level: 'debug' })];
+      [new winston.transports.Console({ level: 'debug' })]
     if (!Logger._logger) {
-      Logger._logger = console;
+      Logger._logger = console
       // Logger._logger = new winston.Logger({
       //   transports
-      // });
+      // })
     }
   }
 
   error(...logs: Log[]) {
     logs.forEach(log => {
-      Logger._logger.error(...this._getLogMessage(log));
-    });
+      Logger._logger.error(...this._getLogMessage(log))
+    })
   }
 
   warn(...logs: Log[]) {
     logs.forEach(log => {
-      Logger._logger.warn(...this._getLogMessage(log));
-    });
+      Logger._logger.warn(...this._getLogMessage(log))
+    })
   }
 
   info(...logs: Log[]) {
     logs.forEach(log => {
-      Logger._logger.info(...this._getLogMessage(log));
-    });
+      Logger._logger.info(...this._getLogMessage(log))
+    })
   }
 
   debug(...logs: Log[]) {
     logs.forEach(log => {
-      Logger._logger.debug(...this._getLogMessage(log));
-    });
+      Logger._logger.debug(...this._getLogMessage(log))
+    })
   }
 
   _getLogMessage(log: Log) {
-    const timestamp = format(Date.now(), 'DD.MM.YYYY HH:mm:ss');
+    const timestamp = format(Date.now(), 'DD.MM.YYYY HH:mm:ss')
 
     if (typeof log === 'object') {
-      const { message, ...rest } = log;
+      const { message, ...rest } = log
 
       return [
         message,
         {
           name: this._name,
           timestamp,
-          ...rest
-        }
-      ];
+          ...rest,
+        },
+      ]
     }
 
     return [
       log,
       {
         name: this._name,
-        timestamp
-      }
-    ];
+        timestamp,
+      },
+    ]
   }
 }
 
-export { Logger };
+export { Logger }
