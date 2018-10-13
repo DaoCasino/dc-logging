@@ -1,5 +1,5 @@
-import { format } from 'date-fns'
-import winston from 'winston'
+import { format } from "date-fns"
+import winston from "winston"
 // import WinstonGraylog2 from "winston-graylog2"
 
 const getGraylogServerOptions = () => {
@@ -31,7 +31,7 @@ class Logger {
       //       })
       //     ]
       //   :
-      [new winston.transports.Console({ level: 'debug' })]
+      [new winston.transports.Console({ level: "debug" })]
     if (!Logger._logger) {
       Logger._logger = console
       // Logger._logger = new winston.Logger({
@@ -42,51 +42,38 @@ class Logger {
 
   error(...logs: Log[]) {
     logs.forEach(log => {
-      Logger._logger.error(...this._getLogMessage(log))
+      Logger._logger.error(this._getLogMessage(log))
     })
   }
 
   warn(...logs: Log[]) {
     logs.forEach(log => {
-      Logger._logger.warn(...this._getLogMessage(log))
+      Logger._logger.warn(this._getLogMessage(log))
     })
   }
 
   info(...logs: Log[]) {
     logs.forEach(log => {
-      Logger._logger.info(...this._getLogMessage(log))
+      Logger._logger.info(this._getLogMessage(log))
     })
   }
 
   debug(...logs: Log[]) {
     logs.forEach(log => {
-      Logger._logger.debug(...this._getLogMessage(log))
+      Logger._logger.debug(this._getLogMessage(log))
     })
   }
 
   _getLogMessage(log: Log) {
-    const timestamp = format(Date.now(), 'DD.MM.YYYY HH:mm:ss')
+    const timestamp = format(Date.now(), "DD.MM HH:mm:ss")
 
-    if (typeof log === 'object') {
+    if (typeof log === "object") {
       const { message, ...rest } = log
 
-      return [
-        message,
-        {
-          name: this._name,
-          timestamp,
-          ...rest,
-        },
-      ]
+      return `${this._name} ${timestamp}-${message} ${JSON.stringify(rest)}`
     }
 
-    return [
-      log,
-      {
-        name: this._name,
-        timestamp,
-      },
-    ]
+    return `${this._name} ${timestamp}-${log}`
   }
 }
 
