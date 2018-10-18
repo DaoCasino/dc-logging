@@ -5,7 +5,7 @@
   "main": "./lib/index",
   "scripts": {
     "build:ts": "yarn typescript",
-    "build": "npm-run-all typescript",
+    "build": "yarn typescript",
     "clean": "rimraf lib",
     "typescript": "tsc --build"
   },
