@@ -27,29 +27,13 @@ class Logger {
     }
   }
 
-  error(...logs: Log[]) {
-    logs.forEach(log => {
-      Logger._logger.error(this._getLogMessage(log))
-    })
-  }
+  error = console.error
 
-  warn(...logs: Log[]) {
-    logs.forEach(log => {
-      Logger._logger.warn(this._getLogMessage(log))
-    })
-  }
+  warn = console.warn
 
-  info(...logs: Log[]) {
-    logs.forEach(log => {
-      Logger._logger.info(this._getLogMessage(log))
-    })
-  }
+  info = console.info
 
-  debug(...logs: Log[]) {
-    logs.forEach(log => {
-      Logger._logger.debug(this._getLogMessage(log))
-    })
-  }
+  debug = console.debug
 
   _getLogMessage(log: Log) {
     const timestamp = format(Date.now(), "DD.MM HH:mm:ss")
