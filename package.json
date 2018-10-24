@@ -1,6 +1,6 @@
 {
   "name": "dc-logging",
-  "version": "0.3.0",
+  "version": "1.0.2",
   "description": "DAO.Casino logging",
   "main": "./lib/index",
   "scripts": {
