@@ -35,6 +35,8 @@ class Logger {
 
   debug = console.debug
 
+  table = console.table
+
   _getLogMessage(log: Log) {
     const timestamp = format(Date.now(), "DD.MM HH:mm:ss")
 
