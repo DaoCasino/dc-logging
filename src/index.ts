@@ -43,10 +43,10 @@ class Logger {
     if (typeof log === "object") {
       const { message, ...rest } = log
 
-      return `${this._name} ${timestamp}-${message} ${JSON.stringify(rest)}`
+      return `${this._name}: ${timestamp}-${message} ${JSON.stringify(rest)}`
     }
 
-    return `${this._name} ${timestamp}-${log}`
+    return `${this._name}: ${timestamp}-${log}`
   }
 }
 
