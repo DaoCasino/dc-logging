@@ -1,5 +1,5 @@
 {
-  "name": "@daocasino/dc-logging",
+  "name": "dc-logging",
   "version": "0.2.0",
   "description": "DAO.Casino logging",
   "main": "./lib/index",
