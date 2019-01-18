@@ -1,4 +1,4 @@
-import { format } from "date-fns"
+import { format } from 'date-fns'
 // import WinstonGraylog2 from "winston-graylog2"
 
 const getGraylogServerOptions = () => {
@@ -38,9 +38,9 @@ class Logger {
   table = console.table
 
   _getLogMessage(log: Log) {
-    const timestamp = format(Date.now(), "DD.MM HH:mm:ss")
+    const timestamp = format(Date.now(), 'DD.MM HH:mm:ss')
 
-    if (typeof log === "object") {
+    if (typeof log === 'object') {
       const { message, ...rest } = log
 
       return `${this._name}: ${timestamp}-${message} ${JSON.stringify(rest)}`
