@@ -1,10 +1,11 @@
 {
-  "name": "dc-logging",
-  "version": "1.0.0",
+  "name": "@daocasino/dc-logging",
+  "version": "0.2.8",
   "description": "DAO.Casino logging",
   "main": "./lib/index",
   "scripts": {
-    "build": "npm-run-all typescript",
+    "build:ts": "yarn typescript",
+    "build": "yarn typescript",
     "clean": "rimraf lib",
     "typescript": "tsc --build"
   },
@@ -12,8 +13,13 @@
   "author": "",
   "license": "GPL-3.0",
   "dependencies": {
-    "date-fns": "^1.29.0",
-    "winston": "2.4.2"
-    
-  }
+    "@types/node": "^10.11.7",
+    "date-fns": "1.29.0"
+  },
+  "devDependencies": {
+    "husky": "1.1.1",
+    "tslint": "5.11.0",
+    "typescript": "^3.1.2"
+  },
+  "gitHead": "c83ce2ab1c77daa4fabf666260b0698d37dbf312"
 }
